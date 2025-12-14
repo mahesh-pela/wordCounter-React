@@ -1,44 +1,92 @@
+import { useState } from "react";
+
 const Counter = () => {
+  const [text, setText] = useState("");
+
+  // counts
+  const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  const letterCount = text.replace(/\s/g, "").length;
+  const paragraphCount = text.trim() === "" ? 0 : text.split(/\n+/).length;
+
+  // actions
+  const handleUpperCase = () => setText(text.toUpperCase());
+  const handleLowerCase = () => setText(text.toLowerCase());
+
   return (
-    <>
-      <div className="flex items-center flex-col w-full  p-4">
-        {/* word count row */}
-        <div className="w-full flex justify-center items-center mt-8 gap-20">
-          {/* word count */}
-          <div className="bg-purple-600 p-2 w-27.5 flex flex-col items-center rounded-md">
-            <div className="text-white font-semibold text-lg">Word</div>
-            <div className="text-white font-bold text-2xl">2</div>
+    <div className="min-h-screen w-full bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-200 flex justify-center p-6">
+      <div className="w-full max-w-6xl bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6">
+        {/* Counter Row */}
+        <div className="flex justify-center items-center gap-12 mt-6 flex-wrap">
+          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 p-4 w-36 rounded-xl shadow-lg text-center">
+            <div className="text-white text-sm font-medium">Words</div>
+            <div className="text-white text-3xl font-bold">{wordCount}</div>
           </div>
 
-          {/* Letter count */}
-          <div className="bg-purple-600 p-2 w-27.5 flex flex-col items-center rounded-md">
-            <div className="text-white font-semibold text-lg">Letter</div>
-            <div className="text-white font-bold text-2xl">22</div>
+          <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-4 w-36 rounded-xl shadow-lg text-center">
+            <div className="text-white text-sm font-medium">Letters</div>
+            <div className="text-white text-3xl font-bold">{letterCount}</div>
           </div>
 
-          {/* Paragraph count */}
-          <div className="bg-purple-600 p-2 w-27.5 flex flex-col items-center rounded-md">
-            <div className="text-white font-semibold text-lg">Paragraph</div>
-            <div className="text-white font-bold text-2xl">1</div>
+          <div className="bg-gradient-to-br from-pink-500 to-purple-600 p-4 w-36 rounded-xl shadow-lg text-center">
+            <div className="text-white text-sm font-medium">Paragraphs</div>
+            <div className="text-white text-3xl font-bold">
+              {paragraphCount}
+            </div>
           </div>
         </div>
 
-        {/* textarea */}
+        {/* Textarea */}
         <textarea
-          className="p-2 mt-10 w-full max-w-5xl min-h-[250px] focus:outline-gray-300 border border-gray-300 rounded-md"
-          placeholder="Type here..."
+          className="
+            mt-10
+            w-full
+            min-h-[260px]
+            p-4
+            rounded-xl
+            border border-gray-300
+            focus:outline-none
+            focus:ring-2 focus:ring-purple-400
+            resize-none
+            text-gray-800
+            shadow-sm
+          "
+          placeholder="Type your text here..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         ></textarea>
 
-        <div className="flex gap-2 mt-3">
-          <div className="bg-blue-500 p-2 rounded-md text-white">
-            Click to UpperCase
-          </div>
-          <div className="bg-blue-500 p-2 rounded-md text-white">
-            Click to LowerCase
-          </div>
+        {/* Buttons */}
+        <div className="flex justify-center gap-4 mt-6">
+          <button
+            onClick={handleUpperCase}
+            className="
+              px-6 py-2
+              rounded-xl
+              text-white font-semibold
+              bg-gradient-to-r from-blue-500 to-indigo-500
+              hover:from-blue-600 hover:to-indigo-600
+              transition shadow-md
+            "
+          >
+            Uppercase
+          </button>
+
+          <button
+            onClick={handleLowerCase}
+            className="
+              px-6 py-2
+              rounded-xl
+              text-white font-semibold
+              bg-gradient-to-r from-purple-500 to-pink-500
+              hover:from-purple-600 hover:to-pink-600
+              transition shadow-md
+            "
+          >
+            Lowercase
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
